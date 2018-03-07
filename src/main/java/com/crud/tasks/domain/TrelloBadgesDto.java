@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class BadgesDto {
+public class TrelloBadgesDto {
     private int votes;
-    private AttachementsByTypeDto attachmentsByTypeDto;
+    private Map<String, Map<String, Integer>> attachmentsByType;
 }
