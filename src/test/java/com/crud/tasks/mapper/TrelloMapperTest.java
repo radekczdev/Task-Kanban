@@ -45,19 +45,15 @@ public class TrelloMapperTest {
             }
         };
 
-
+        // When
         List<TrelloBoardDto> trelloBoardDto = trelloMapper.mapToBoardsDto(trelloBoards);
         List<TrelloBoard> trelloBoardsAfterMapping = trelloMapper.mapToBoards(trelloBoardDto);
 
-
-        // When
+        // Then
         int trelloBoardsAmount = trelloBoards.size();
         int trelloBoardsAmountAfterMapping = trelloBoardsAfterMapping.size();
-
         String trelloBoard1Name = trelloBoard1.getName();
         String trelloBoard1NameAfterMapping = trelloBoardsAfterMapping.get(0).getName();
-
-        // Then
         assertEquals(trelloBoardsAmount, trelloBoardsAmountAfterMapping);
         assertEquals(trelloBoard1Name, trelloBoard1NameAfterMapping);
 
@@ -72,16 +68,15 @@ public class TrelloMapperTest {
         trelloLists.add(trelloList1);
         trelloLists.add(trelloList2);
 
+        // When
         List<TrelloListDto> trelloListsDto = trelloMapper.mapToListDto(trelloLists);
         List<TrelloList> trelloListAfterMappings = trelloMapper.mapToList(trelloListsDto);
 
-        // When
+        // Then
         int numberOfLists = trelloLists.size();
         int numberOfListsAfterMappings = trelloListAfterMappings.size();
         String nameOfSecondList = trelloList2.getName();
         String nameOfSecondListAfterMappings = trelloListAfterMappings.get(1).getName();
-
-        // Then
         assertEquals(numberOfLists, numberOfListsAfterMappings);
         assertEquals(nameOfSecondList, nameOfSecondListAfterMappings);
     }
@@ -91,16 +86,16 @@ public class TrelloMapperTest {
     public void testMapToCard() {
         // Given
         TrelloCard trelloCard = new TrelloCard("card", "desc", "pos", "id1");
+
+        // When
         TrelloCardDto trelloCardDto = trelloMapper.mapToCardDto(trelloCard);
         TrelloCard trelloCardAfterMapping = trelloMapper.mapToCard(trelloCardDto);
 
-        // When
+        // Then
         String nameAfterMapping = trelloCardAfterMapping.getName();
         String descAfterMapping = trelloCardAfterMapping.getDescription();
         String posAfterMapping = trelloCardAfterMapping.getPos();
         String listIdAfterMapping = trelloCardAfterMapping.getListId();
-
-        // Then
         assertEquals(trelloCard.getName(), nameAfterMapping);
         assertEquals(trelloCard.getDescription(), descAfterMapping);
         assertEquals(trelloCard.getPos(), posAfterMapping);
