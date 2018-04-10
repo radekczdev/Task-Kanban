@@ -2,6 +2,7 @@ package com.crud.tasks.service;
 
 import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.CreatedTrelloCardDto;
+import com.crud.tasks.domain.Mail;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.client.TrelloClient;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,6 +31,9 @@ public class TrelloServiceTest {
 
     @Mock
     private TrelloClient trelloClient;
+
+    @Mock
+    private SimpleEmailService emailService;
 
     @Test
     public void fetchTrelloBoards() {
@@ -62,8 +67,9 @@ public class TrelloServiceTest {
         );
 
         // When
-        when(trelloClient.createNewCard(any())).thenReturn(createdTrelloCardDto);
+        when(trelloClient.createNewCard(any(TrelloCardDto.class))).thenReturn(createdTrelloCardDto);
         when(adminConfig.getAdminMail()).thenReturn("mail@mail.com");
+        doNothing().when(emailService).send(any(Mail.class));
 
         // Then
         CreatedTrelloCardDto createdTrelloCardDtoFromService = trelloService.createTrelloCard(trelloCardDto);
