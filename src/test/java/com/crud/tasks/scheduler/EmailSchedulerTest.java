@@ -32,13 +32,13 @@ public class EmailSchedulerTest {
     private AdminConfig adminConfig;
 
     @Test
-    public void sendInformationEmail() {
+    public void shouldSendInformationEmail() {
         // Given
         long size = 3L;
-
-        // When
         when(taskRepository.count()).thenReturn(size);
         when(adminConfig.getAdminMail()).thenReturn("mail@mail.com");
+
+        // When
 
         // Then
         emailScheduler.sendInformationEmail();
