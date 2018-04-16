@@ -30,7 +30,7 @@ public class TaskControllerTest {
     private DbService dbService;
 
     @Test
-    public void getTasks() {
+    public void shouldGetTasks() {
         // Given
         Task task1 = new Task(1L, "Task1", "Cont1");
         Task task2 = new Task(2L, "Task2", "Cont2");
@@ -53,10 +53,10 @@ public class TaskControllerTest {
                 add(taskDto3);
             }
         };
-
-        // When
         when(dbService.getAllTasks()).thenReturn(taskList);
         when(taskMapper.mapToTaskDtoList(taskList)).thenReturn(taskDtoList);
+
+        // When
         List<TaskDto> taskDtoList1 = taskController.getTasks();
 
         // Then
@@ -65,56 +65,58 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void getTask() throws Exception{
+    public void shouldGetTask() throws Exception{
         // Given
         Task task = new Task(1L, "Task1", "Cont1");
         TaskDto taskDto = new TaskDto(1L, "Task1", "Cont1");
-
-        // When
         when(dbService.getTask(1L)).thenReturn(Optional.of(task));
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
 
-        // Then
+        // When
         TaskDto taskDto1 = taskController.getTask(1L);
+
+        // Then
+
         assertEquals(task.getContent(), taskDto1.getContent());
 
     }
 
     @Test
-    public void deleteTask() {
+    public void shouldDeleteTask() {
         // Given
-        // When
         doNothing().when(dbService).deleteTask(1L);
+
+        // When
 
         // Then
         taskController.deleteTask(1L);
     }
 
     @Test
-    public void updateTask() {
+    public void shouldUpdateTask() {
         // Given
         TaskDto taskDto = new TaskDto(1L, "title1", "content1");
         Task task = new Task(1L, "title", "content");
-
-        // When
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
         when(dbService.saveTask(task)).thenReturn(task);
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
 
-        // Then
+        // When
         TaskDto taskDto1 = taskController.updateTask(taskDto);
+
+        // Then
         assertEquals(taskDto.getContent(), taskDto1.getContent());
     }
 
     @Test
-    public void createTask() {
+    public void shouldCreateTask() {
         // Given
         TaskDto taskDto = new TaskDto(1L, "title1", "content1");
         Task task = new Task(1L, "title1", "content1");
-
-        // When
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
         when(dbService.saveTask(task)).thenReturn(task);
+
+        // When
 
         // Then
         taskController.createTask(taskDto);
