@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Getter
-public class AdminConfig {
-    @Value("${admin.mail}")
-    private String adminMail;
+public class DevInfo {
+    @Value("${info.company.name}")
+    private String companyName;
 
-    @Value("${admin.name}")
-    private String adminName;
+    @Value("${info.company.goal}")
+    private String companyGoal;
 }
