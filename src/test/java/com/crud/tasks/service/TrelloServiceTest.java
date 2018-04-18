@@ -69,7 +69,6 @@ public class TrelloServiceTest {
         // When
         when(trelloClient.createNewCard(any(TrelloCardDto.class))).thenReturn(createdTrelloCardDto);
         when(adminConfig.getAdminMail()).thenReturn("mail@mail.com");
-        doNothing().when(emailService).send(any(Mail.class));
 
         // Then
         CreatedTrelloCardDto createdTrelloCardDtoFromService = trelloService.createTrelloCard(trelloCardDto);
